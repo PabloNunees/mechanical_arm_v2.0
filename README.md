@@ -27,31 +27,31 @@ This project consists of an improved robotic arm built with the ESP32 microcontr
 
 ## Features in Version 2.0
 
--Servo control through potentiometers
+- Servo control through potentiometers
 
--Interactive LCD display interface
+- Interactive LCD display interface
 
--Save and replay sequences of movements
+- Save and replay sequences of movements
 
--Interpolated servo movements for smooth transitions
+- Interpolated servo movements for smooth transitions
 
--Planned: remote control via Wi-Fi
+- lanned: remote control via Wi-Fi
 
--Planned: web interface for visualization and control
+- Planned: web interface for visualization and control
 
 ---
 
 ## Contributing
 
--Contributions are welcome. To contribute:
+- Contributions are welcome. To contribute:
 
--Fork this repository
+- Fork this repository
 
--Create a new branch with your feature or fix
+- Create a new branch with your feature or fix
 
--Commit your changes
+- Commit your changes
 
--Open a pull request with a detailed description
+- Open a pull request with a detailed description
 
 ---
 
@@ -66,11 +66,11 @@ cd mechanical_arm_v2.0
 
 2.Install required tools:
 
--Arduino IDE or PlatformIO
+- Arduino IDE or PlatformIO
 
--ESP32 board packages
+- ESP32 board packages
 
--Required libraries (Servo, LiquidCrystal_I2C, etc.)
+- Required libraries (Servo, LiquidCrystal_I2C, etc.)
 
 3.Open the project in your preferred environment and upload to the ESP32.
 
