@@ -19,8 +19,8 @@ This project consists of an improved robotic arm built with the ESP32 microcontr
 
 - ESP32 microcontroller  
 - Servo motors for arm articulation
-  4x MG995 servo motors
-  3x SG90 micro servo motors 
+  - 4x MG995 servo motors
+  - 3x SG90 micro servo motors 
 - Potentiometers and buttons for user input  
 - I2C LCD display for UI and feedback 
 - External power supply for servos  
