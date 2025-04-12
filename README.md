@@ -76,7 +76,8 @@ cd mechanical_arm_v2.0
 
 ---
 
-License
+## License
+
 This project is licensed under the MIT License.
 
 ---
