@@ -32,7 +32,9 @@ cd mechanical_arm_v2.0
 ## Technologies and Components
 
 - ESP32 microcontroller  
-- Servo motors for arm articulation  
+- Servo motors for arm articulation
+  - 4x MG995 servo motors
+  - 3x SG90 micro servo motors 
 - Potentiometers and buttons for user input  
 - I2C LCD display for UI and feedback 
 - External power supply for servos  
