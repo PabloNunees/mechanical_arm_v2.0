@@ -1,8 +1,5 @@
 # mechanical_arm_v2.0
-
-Second version of a robotic arm project using ESP32, with Wi-Fi control, LCD interface and programmable motion sequences.
-
----
+> Second version of a robotic arm project using ESP32, with Wi-Fi control, LCD interface and programmable motion sequences.
 
 ## Project Overview
 
@@ -12,50 +9,6 @@ This project consists of an improved robotic arm built with the ESP32 microcontr
 - LCD display interface via I2C  
 - Wi-Fi communication between control and arm  
 - Recording and automatic playback of motion sequences
-  
----
-
-## Technologies and Components
-
-- ESP32 microcontroller  
-- Servo motors for arm articulation
-  - 4x MG995 servo motors
-  - 3x SG90 micro servo motors 
-- Potentiometers and buttons for user input  
-- I2C LCD display for UI and feedback 
-- External power supply for servos  
-
----
-
-## Features in Version 2.0
-
-- Servo control through potentiometers
-
-- Interactive LCD display interface
-
-- Save and replay sequences of movements
-
-- Interpolated servo movements for smooth transitions
-
-- lanned: remote control via Wi-Fi
-
-- Planned: web interface for visualization and control
-
----
-
-## Contributing
-
-- Contributions are welcome. To contribute:
-
-- Fork this repository
-
-- Create a new branch with your feature or fix
-
-- Commit your changes
-
-- Open a pull request with a detailed description
-
----
 
 ## Getting Started
 
@@ -76,16 +29,48 @@ cd mechanical_arm_v2.0
 
 3.Open the project in your preferred environment and upload to the ESP32.
 
----
+## Technologies and Components
+
+- ESP32 microcontroller  
+- Servo motors for arm articulation
+  - 4x MG995 servo motors
+  - 3x SG90 micro servo motors 
+- Potentiometers and buttons for user input  
+- I2C LCD display for UI and feedback 
+- External power supply for servos  
+
+## Features in Version 2.0
+
+- Servo control through potentiometers
+
+- Interactive LCD display interface
+
+- Save and replay sequences of movements
+
+- Interpolated servo movements for smooth transitions
+
+- lanned: remote control via Wi-Fi
+
+- Planned: web interface for visualization and control
+
+## Contributing
+
+- Contributions are welcome. To contribute:
+
+- Fork this repository
+
+- Create a new branch with your feature or fix
+
+- Commit your changes
+
+- Open a pull request with a detailed description
 
 ## License
 
 This project is licensed under the MIT License.
 
----
-
 ## Contributors
 
-- [@PabloNunees](https://github.com/PabloNunees) – Main development
+- [@PabloNunees](https://github.com/PabloNunees) – Main developer
 - [@acpnf](https://github.com/acpnf)
 
