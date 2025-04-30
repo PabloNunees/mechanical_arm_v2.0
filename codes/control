@@ -1,0 +1,52 @@
+#include <SPI.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <Fonts/FreeSerif12pt7b.h>
+
+Adafruit_SSD1306 display(-1);
+
+  int botao_movimen = 2;
+  int botao_garra = 3;
+  int contador = 0;
+
+void setup() {
+  
+  pinMode(botao_movimen, INPUT_PULLUP);
+  pinMode(botao_garra, INPUT_PULLUP);
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+
+  if (digitalRead(botao_movimen) == LOW){
+    if (contador == 0){
+      contador = 1;
+    }
+    else {
+      contador = 0;
+    }
+  }
+
+  if(contador == 0){
+    display.setCursor(0,4); // Posiciona o cursor
+    display.println("> modo livre");
+    display.setCursor(0, 22);
+    display.println("  automatico"); // Imprime mensagem
+    display.display();
+    
+  }
+  else if (contador == 1){
+
+    display.setCursor(0,4); // Posiciona o cursor
+    display.println("  modo livre");
+    display.setCursor(0, 22);
+    display.println("> automatico"); // Imprime mensagem
+    display.display();
+    
+  }
+}
