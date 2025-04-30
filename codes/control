@@ -10,14 +10,26 @@ Adafruit_SSD1306 display(-1);
   int botao_garra = 3;
   int contador = 0;
 
+  int base_horizo = 0;
+  int base_verti = 0;
+  int cotovelo = 0;
+
 void setup() {
-  
+  Serial.begin(9600);
   pinMode(botao_movimen, INPUT_PULLUP);
   pinMode(botao_garra, INPUT_PULLUP);
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  
+
+  base_horizo = analogRead(A0);
+  base_verti = analogRead(A1);
+  cotovelo = analogRead(A2);
+
 }
 
 void loop() {
+  Serial.println(base_horizo);
+
+  base_horizo = analogRead(A0);
   // put your main code here, to run repeatedly:
   display.clearDisplay();
   display.setTextSize(1);
