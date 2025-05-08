@@ -1,0 +1,78 @@
+#include <SPI.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <Fonts/FreeSerif12pt7b.h>
+
+// Define o display OLED
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET    -1
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+// Define os pinos dos botões
+int botao_movimen = 22;  // Ajuste conforme a conexão do seu ESP32
+int botao_garra = 3;    // Ajuste conforme a conexão do seu ESP32
+
+// Variáveis de controle
+int contador = 0;
+int base_horizo = 0;
+int base_verti = 0;
+int cotovelo = 0;
+
+void setup() {
+  Serial.begin(9600);
+  
+  // Configura os pinos como entrada com pull-up
+  pinMode(botao_movimen, INPUT);
+  pinMode(botao_garra, INPUT);
+  
+  // Inicia o display OLED
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println(F("Erro ao inicializar o display OLED"));
+    while (true); // Se não inicializar, trava o código
+  }
+  
+  // Inicializa os valores dos pinos analógicos
+  base_horizo = analogRead(34);  // A0 no ESP32 é 34
+  base_verti = analogRead(35);   // A1 no ESP32 é 35
+  cotovelo = analogRead(36);     // A2 no ESP32 é 36
+}
+
+void loop() {
+  Serial.println(base_horizo);
+  
+  // Atualiza os valores dos pinos analógicos
+  base_horizo = analogRead(34);
+  
+  // Limpa a tela a cada loop
+  display.clearDisplay();
+  display.setTextSize(1);  // Define o tamanho do texto
+  display.setTextColor(WHITE);  // Define a cor do texto como branco
+
+  // Alterna entre os modos ao pressionar o botão
+  if (digitalRead(botao_movimen) == LOW){
+    if (contador == 0){
+      contador = 1;
+    }
+    else {
+      contador = 0;
+    }
+  }
+
+  // Exibe informações na tela dependendo do modo
+  if (contador == 0) {
+    display.setCursor(0, 4);  // Posiciona o cursor
+    display.println("> modo livre");
+    display.setCursor(0, 22);
+    display.println("  automatico");
+  } else if (contador == 1) {
+    display.setCursor(0, 4);  // Posiciona o cursor
+    display.println("  modo livre");
+    display.setCursor(0, 22);
+    display.println("> automatico");
+  }
+
+  // Atualiza a tela
+  display.display();
+}
