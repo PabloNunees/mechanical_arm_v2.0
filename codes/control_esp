@@ -1,5 +1,6 @@
 #include <SPI.h>
 #include <Wire.h>
+#include <ESP32Servo.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Fonts/FreeSerif12pt7b.h>
@@ -11,14 +12,14 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 // Define os pinos dos botões
-int botao_movimen = 22;  // Ajuste conforme a conexão do seu ESP32
-int botao_garra = 3;    // Ajuste conforme a conexão do seu ESP32
+int botao_movimen = 15;  // Ajuste conforme a conexão do seu ESP32
+int botao_garra = 2;    // Ajuste conforme a conexão do seu ESP32
 
 // Variáveis de controle
 int contador = 0;
 int base_horizo = 0;
 int base_verti = 0;
-int cotovelo = 0;
+int cotovelo, mao_horizontal, mao_vertical, garra = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -34,16 +35,27 @@ void setup() {
   }
   
   // Inicializa os valores dos pinos analógicos
-  base_horizo = analogRead(34);  // A0 no ESP32 é 34
-  base_verti = analogRead(35);   // A1 no ESP32 é 35
-  cotovelo = analogRead(36);     // A2 no ESP32 é 36
+  base_horizo = analogRead(26);  
+  base_verti = analogRead(35);   
+  cotovelo = analogRead(36);   
+  mao_horizontal = analogRead(34);
+  mao_vertical  = analogRead(39);
+  garra = analogRead(32);  
 }
 
 void loop() {
-  Serial.println(base_horizo);
+
   
   // Atualiza os valores dos pinos analógicos
-  base_horizo = analogRead(34);
+  base_horizo = analogRead(26);
+  base_verti = analogRead(35);   
+  cotovelo = analogRead(36);   
+  mao_horizontal = analogRead(34);
+  mao_vertical  = analogRead(39);
+  garra = analogRead(32);
+
+  
+  
   
   // Limpa a tela a cada loop
   display.clearDisplay();
@@ -51,12 +63,16 @@ void loop() {
   display.setTextColor(WHITE);  // Define a cor do texto como branco
 
   // Alterna entre os modos ao pressionar o botão
-  if (digitalRead(botao_movimen) == LOW){
+  if (digitalRead(botao_movimen) == HIGH){
     if (contador == 0){
       contador = 1;
+      Serial.println(contador);
+      delay(10);
     }
     else {
       contador = 0;
+      Serial.println(contador);
+      delay(10);
     }
   }
 
