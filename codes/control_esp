@@ -1,6 +1,5 @@
 #include <SPI.h>
 #include <Wire.h>
-#include <ESP32Servo.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Fonts/FreeSerif12pt7b.h>
@@ -36,11 +35,11 @@ void setup() {
   
   // Inicializa os valores dos pinos analógicos
   base_horizo = analogRead(26);  
-  base_verti = analogRead(35);   
-  cotovelo = analogRead(36);   
-  mao_horizontal = analogRead(34);
-  mao_vertical  = analogRead(39);
-  garra = analogRead(32);  
+  base_verti = analogRead(25);   
+  cotovelo = analogRead(33);   
+  mao_horizontal = analogRead(32);
+  mao_vertical  = analogRead(35);
+  garra = analogRead(34);  
 }
 
 void loop() {
@@ -54,8 +53,12 @@ void loop() {
   mao_vertical  = analogRead(39);
   garra = analogRead(32);
 
-  
-  
+  Serial.println(base_horizo);
+  Serial.println(base_verti);
+  Serial.println(cotovelo);
+  Serial.println(mao_horizontal);
+  Serial.println(mao_horizontal);
+  Serial.println(garra);
   
   // Limpa a tela a cada loop
   display.clearDisplay();
