@@ -6,59 +6,126 @@
 
 Adafruit_SSD1306 display(-1);
 
-  int botao_movimen = 2;
-  int botao_garra = 3;
-  int contador = 0;
+// Pinos dos botões
+const int botao_movimen = 4;
+const int botao_garra   = 3;
+int contador = 0;
 
-  int base_horizo = 0;
-  int base_verti = 0;
-  int cotovelo = 0;
+// Variáveis para 6 potenciômetros (A0…A5)
+int base_horizo = 0;  // A0
+int base_verti  = 0;  // A1
+int cotovelo    = 0;  // A2
+int mao         = 0;  // A3
+int garra       = 0;  // A4
+int extra       = 0;  // A5 – novo potenciômetro
 
 void setup() {
   Serial.begin(9600);
-  pinMode(botao_movimen, INPUT_PULLUP);
-  pinMode(botao_garra, INPUT_PULLUP);
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  
+  pinMode(botao_movimen, INPUT);
+  pinMode(botao_garra,   INPUT);
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 
+  // Leitura inicial dos 6 potenciômetros
   base_horizo = analogRead(A0);
-  base_verti = analogRead(A1);
-  cotovelo = analogRead(A2);
-
+  base_verti  = analogRead(A1);
+  cotovelo    = analogRead(A2);
+  mao         = analogRead(A3);
+  garra       = analogRead(A4);
+  extra       = analogRead(A5);
 }
 
 void loop() {
+  // Para debug, imprime o valor de base_horizo
   Serial.println(base_horizo);
 
+  // Atualiza leituras dos 6 potenciômetros a cada ciclo
   base_horizo = analogRead(A0);
-  // put your main code here, to run repeatedly:
+  base_verti  = analogRead(A1);
+  cotovelo    = analogRead(A2);
+  mao         = analogRead(A3);
+  garra       = analogRead(A6);
+  extra       = analogRead(A7);
+
+  // (Opcional) imprimir também os novos potenciômetros para verificação
+  // Serial.print("mao: ");   Serial.println(mao);
+  // Serial.print("garra: "); Serial.println(garra);
+  // Serial.print("extra: "); Serial.println(extra);
+
+  // Atualiza o display
   display.clearDisplay();
   display.setTextSize(1);
   display.setTextColor(WHITE);
 
-  if (digitalRead(botao_movimen) == LOW){
-    if (contador == 0){
+  // Alterna contador entre 0 e 1 sempre que o botão de movimento é pressionado
+  if (digitalRead(botao_movimen) == HIGH) {
+    if (contador == 0) {
       contador = 1;
-    }
-    else {
+    } else {
       contador = 0;
     }
+    delay(200); // debounce simples
   }
 
-  if(contador == 0){
-    display.setCursor(0,4); // Posiciona o cursor
+  if (contador == 0) {
+    display.setCursor(0, 4);
     display.println("> modo livre");
     display.setCursor(0, 22);
-    display.println("  automatico"); // Imprime mensagem
-    display.display();
-    
+    display.println("  automatico");
+    if (botao_garra == HIGH){
+      modoLivre();
+    }
   }
-  else if (contador == 1){
-
-    display.setCursor(0,4); // Posiciona o cursor
+  else if (contador == 1) {
+    display.setCursor(0, 4);
     display.println("  modo livre");
     display.setCursor(0, 22);
-    display.println("> automatico"); // Imprime mensagem
-    display.display();
-    
+    display.println("> automatico");
+  }
+  display.display();
+
+}
+
+void modolivre() {
+  // Limiares para cada um dos 6 potenciômetros
+  const int LIM_INF[6] = {500, 500, 500, 500, 500, 500};
+  const int LIM_SUP[6] = {530, 518, 540, 520, 520, 520};
+
+  while (true) {
+    int a_esquerdo = analogRead(A0);  // potenciômetro 1
+    int b_esquerdo = analogRead(A1);  // potenciômetro 2
+    int c_direito  = analogRead(A2);  // potenciômetro 3
+    int d_direito  = analogRead(A3);  // potenciômetro 4
+    int e_adicional= analogRead(A4);  // potenciômetro 5 (novo)
+    int f_adicional= analogRead(A5);  // potenciômetro 6 (novo)
+
+    if (a_esquerdo > LIM_SUP[0]) {
+      Serial.print("base,"); Serial.println(a_esquerdo);
+    }
+    else if ( b_esquerdo > LIM_SUP[1]) {
+      Serial.print("base2,"); Serial.println(b_esquerdo);
+    }
+    else if ( c_direito > LIM_SUP[2]) {
+      Serial.print("3,"); Serial.println(c_direito);
+    }
+    else if (d_direito > LIM_SUP[3]) {
+      Serial.print("4,"); Serial.println(d_direito);
+    }
+    else if ( e_adicional > LIM_SUP[4]) {
+      Serial.print("5,"); Serial.println(e_adicional);
+    }
+    else if ( f_adicional > LIM_SUP[5]) {
+      Serial.print("6,"); Serial.println(f_adicional);
+    }
+
+
+    delay(20); // evita saturar a Serial
+
+    // Para sair do loop, o usuário pode pressionar o botão de movimento
+    if (digitalRead(botao_movimen) == HIGH) {
+      delay(200); // debounce
+      if (digitalRead(botao_movimen) == HIGH) {
+        break;
+      }
+    }
   }
 }
