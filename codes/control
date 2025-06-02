@@ -71,7 +71,7 @@ void loop() {
     display.println("> modo livre");
     display.setCursor(0, 22);
     display.println("  automatico");
-    if (botao_garra == HIGH){
+    if (digitalRead(botao_garra) == HIGH){
       modoLivre();
     }
   }
